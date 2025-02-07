@@ -1,0 +1,52 @@
+<header class="w-full bg-sky-600 py-0.5 text-sm">
+    <nav class="flex row justify-end w-[80%] mx-auto">
+        <ul class="flex gap-5 text-white">
+          {% if current_user() %}
+            <li><a href="{{ url_for('user_admin.edit', pk=current_user().id) }}">Hi, {{current_user().username|capitalize }}</a></li>
+          {% endif %}
+            <li><a href="{{ url_for('auth_admin.logout') }}">Logout</a></li>
+        </ul>
+    </nav>
+</header>
+
+
+{% with messages = get_flashed_messages(category_filter=["error"]) %}
+{% if messages %}
+<div class="w-full flex bg-red-400 text-white text-[12px] text-center p-1">
+  <ul class="w-[90%]">
+    {%- for msg in messages %}
+    <li>{{ msg }}</li>
+    {% endfor -%}
+  </ul>
+  <i class="fa-solid fa-close"></i>
+</div>
+{% endif %}
+{% endwith %}
+
+
+{% with messages = get_flashed_messages(category_filter=["success"]) %}
+{% if messages %}
+<div class="w-full flex bg-green-400 text-white text-[12px] text-center p-1">
+  <ul class="w-[90%]">
+    {%- for msg in messages %}
+    <li>{{ msg }}</li>
+    {% endfor -%}
+  </ul>
+  <i class="fa-solid fa-close"></i>
+</div>
+{% endif %}
+{% endwith %}
+
+
+{% with messages = get_flashed_messages(category_filter=["info"]) %}
+{% if messages %}
+<div class="w-full flex bg-yellow-400 text-white text-[12px] text-center p-1">
+  <ul class="w-[90%]">
+    {%- for msg in messages %}
+    <li>{{ msg }}</li>
+    {% endfor -%}
+  </ul>
+  <i class="fa-solid fa-close"></i>
+</div>
+{% endif %}
+{% endwith %}

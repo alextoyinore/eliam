@@ -1,0 +1,40 @@
+{% extends 'admin/base.html' %}
+{% block content %}
+
+<div class="text-[12px] w-full">
+    <table class="text-left table-auto text-gray-800 p-2">
+      <tbody class="text-gray-500">
+        <tr>
+        <td class='w-[20%] text-gray-600 font-bold'>First Name</td>
+        <td class="px-2 mb-3">{{enquiry.first_name|capitalize}}</td>
+        </tr>
+        <tr>
+        <td class='w-[20%] text-gray-600 font-bold'>Last Name</td>
+        <td class="px-2 py-3">{{enquiry.last_name|capitalize}}</td>
+        </tr>
+        <tr>
+            <td class='w-[20%] text-gray-600 font-bold'>Title</td>
+            <td class="px-2 py-3">{{enquiry.title|capitalize}}</td>
+        </tr>
+        <tr>
+            <td class='w-[20%] text-gray-600 font-bold'>Message</td>
+            <td class="px-2 py-3">{{enquiry.message}}</td>
+        </tr>
+        <tr>
+            <td class='w-[20%] text-gray-600 font-bold'>Email</td>
+            <td class="px-2 py-3">{{enquiry.email}}</td>
+        </tr>
+        <tr>
+            <td class='w-[15%] text-gray-600 font-bold'>Phone</td>
+            <td class="px-2 py-3">{{enquiry.phone}}</td>
+        </tr>
+        <tr>
+            <td class='w-[20%] text-gray-600 font-bold'>Date</td>
+            <td class="px-2 py-3">{{ enquiry.created_at }}</td>
+        </tr>
+      </tbody>
+    </table>
+</div>
+
+{% endblock %}
+

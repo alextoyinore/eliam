@@ -1,0 +1,26 @@
+{% extends 'admin/base.html' %}
+{% block content %}
+
+<form action="{{ url_for('blog_admin.create_category') }}" method="post" class="flex flex-col gap-2 text-[12px] text-gray-600">
+
+    <div class="flex flex-col gap-1 py-0 w-full">
+        {{form.name}}
+    </div>
+    <div class="flex flex-col gap-1 my-4">
+      {{form.description}}
+    </div>
+
+    <div class="flex gap-2 w-full mt-2">
+      <input class="bg-sky-600 cursor-pointer text-white p-2 w-full hover:bg-sky-500  " type="submit" value="Save" />
+      <a onclick="" href="javascript:history.back()" class="bg-gray-100 w-full cursor-pointer text-gray-500 p-2 hover:bg-gray-200 text-center">Cancel</a>
+    </div>
+
+</form>
+
+<br><br>
+
+<script>
+  
+</script>
+
+{% endblock %}

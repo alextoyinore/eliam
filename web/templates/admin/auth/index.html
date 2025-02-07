@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eliam Admin | Sign in</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="m-0 p-0">
+
+  {% with messages = get_flashed_messages(category_filter=["error"]) %}
+    {% if messages %}
+    <div class="w-full flex bg-red-400 text-white text-[12px] text-center p-1">
+      <ul class="w-[90%] mx-auto">
+        {%- for msg in messages %}
+        <li>{{ msg }}</li>
+        {% endfor -%}
+      </ul>
+      <i class="fa-solid fa-close"></i>
+    </div>
+    {% endif %}
+  {% endwith %}
+
+  <div class="w-full h-screen items-center flex justify-center">
+    <div class="w-[25%]">
+      <div class="flex  gap-4 mb-5 text-[12px] center-items">
+        <img class="w-[50px] h-[50px]" src="{{ url_for('static', filename='images/logo.png') }}" />
+        <div class"flex flex-col">
+          <h1 class="text-xl text-sky-600 font-bold mb-1">Welcome to Eliam Admin</h1>
+          <h2 class="text-gray-500">Sign in with your Eliam Christian Church Admin Credentials</h2>
+        </div>
+      </div>
+      <hr>
+      <form action="{{ url_for('auth_admin.index') }}" method="post" class="text-[12px] text-gray-600 mt-2">
+        <div class="flex flex-col gap-1 py-3">
+            <span class="">Email/Username</span>
+            <input type="email" required name="email" class="w-full py-1 px-3   border focus:outline-sky-500" type="text"/>
+        </div>
+      
+        <div class="flex flex-col gap-1 py-3">
+            <span class="">Password</span>
+            <input required name="password" type="password" class="w-full py-1 px-3   border focus:outline-sky-500" type="text" value="" />
+        </div>
+      
+        <div class="mb-3">
+            <input class="bg-sky-600 cursor-pointer text-white w-full p-2 mt-5 hover:bg-sky-500  " type="submit" value="Sign in">
+        </div>
+
+        <a class="text-red-600 text-right text-[12px]" href="{{ url_for('auth_admin.forgot_password') }}">Forgot your password?</a>
+        
+      </form>
+    </div>
+  </div>
+</body>
+</html>
+
+
+

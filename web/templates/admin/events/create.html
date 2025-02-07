@@ -1,0 +1,57 @@
+{% extends 'admin/base.html' %}
+{% block content %}
+
+<form action="{{ url_for('user_admin.create') }}" method="post" class="text-[12px] text-gray-600">
+    <div class="flex gap-5 py-3">
+        <span class="w-[20%]">Title</span>
+        <input required name="title" class="w-[80%] py-1 px-3 border focus:outline-sky-500" type="text"/>
+    </div>
+
+    <div class="flex gap-5 py-3">
+        <span class="w-[20%]">Start Date</span>
+        <input required type="date" name="start_date" class="w-[80%] py-1 px-3   border focus:outline-sky-500" type="text"/>
+    </div>
+
+    <div class="flex gap-5 py-3">
+        <span class="w-[20%]">End Date</span>
+        <input type="date" required name="end_date" class="w-[80%] py-1 px-3   border focus:outline-sky-500"/>
+    </div>
+
+    <div class="flex gap-5 py-3">
+        <span class="w-[20%]">Start Time</span>
+        <input placeholder="" type="time" name="start_time" class="w-[80%] py-1 px-3   border focus:outline-sky-500" type="text"/>
+    </div>
+
+    <div class="flex gap-5 py-3">
+        <span class="w-[20%]">End Time</span>
+        <input placeholder="" type="time" name="end_time" class="w-[80%] py-1 px-3   border focus:outline-sky-500" type="text"/>
+    </div>
+
+    <div class="flex gap-5 py-3">
+        <span class="w-[20%]">Event Type</span>
+        <select required name="event_type" type="select" class="w-[80%] py-1 px-3   border focus:outline-sky-500" type="text" value="">
+            <option value="service">Service</option>
+            <option value="wedding">Wedding</option>
+            <option value="christening">Christening</option>
+            <option value="buria;">Burial</option>
+            <option value="special">Special</option>
+        </select>
+    </div>
+
+    <div class="flex gap-5 py-3">
+        <span class="w-[20%]">Description</span>
+        <textarea placeholder="" name="description" class="w-[80%] py-1 px-3   border focus:outline-sky-500"></textarea>
+    </div>
+
+    <div class="flex gap-5">
+        <span class="w-[20%]"></span>
+        <div class="flex w-[80%] gap-5">
+            <input class="bg-sky-600 cursor-pointer text-white w-full p-2 mt-5 hover:bg-sky-400" type="submit" value="Save">
+            <a href="javascript:history.back()" class="bg-gray-100 cursor-pointer text-gray-800 p-2 w-full mt-5 hover:bg-gray-300/50 text-center">Cancel</a>
+        </div>
+    </div>
+    
+</form>
+
+
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends 'admin/base.html' %}
+{% block content %}
+
+<form action="{{ url_for('user_admin.create') }}" method="post" class="text-[12px] text-gray-600">
+    <div class="flex gap-5 py-3">
+        <span class="w-[20%]">First Name</span>
+        <input required name="first_name" class="w-[80%] py-1 px-3   border focus:outline-sky-500" type="text"/>
+    </div>
+
+    <div class="flex gap-5 py-3">
+        <span class="w-[20%]">Last Name</span>
+        <input required name="last_name" class="w-[80%] py-1 px-3   border focus:outline-sky-500" type="text"/>
+    </div>
+
+    <div class="flex gap-5 py-3">
+        <span class="w-[20%]">Email</span>
+        <input type="email" required name="email" class="w-[80%] py-1 px-3   border focus:outline-sky-500" type="text"/>
+    </div>
+
+    <div class="flex gap-5 py-3">
+        <span class="w-[20%]">Username</span>
+        <input placeholder="(Optional)" name="username" class="w-[80%] py-1 px-3   border focus:outline-sky-500" type="text"/>
+    </div>
+
+    <div class="flex gap-2 py-3 w-[31%]">
+        <span class="w-[50%]">Is Admin</span>
+        <input name="is_admin" type="checkbox" class="w-[50%] py-1 px-3   border focus:outline-sky-500" type="text"/>
+    </div>
+
+    <div class="flex gap-2 py-3 w-[31%]">
+        <span class="w-[50%]">Is Super</span>
+        <input name=" is_super" type="checkbox" class="w-[50%] py-1 px-3   border focus:outline-sky-500" type="text" />
+    </div>
+
+    <div class="flex gap-5 py-3">
+        <span class="w-[20%]">Password</span>
+        <input required name="password" type="password" class="w-[80%] py-1 px-3   border focus:outline-sky-500" type="text" value="" />
+    </div>
+
+    <div class="flex gap-5">
+        <span class="w-[20%]"></span>
+        <div class="flex w-[80%] gap-5">
+            <input class="bg-sky-600 cursor-pointer text-white w-full p-2 mt-5 hover:bg-sky-400" type="submit" value="Save">
+            <a href="javascript:history.back()" class="bg-gray-100 cursor-pointer text-gray-800 p-2 w-full mt-5 hover:bg-gray-300/50 text-center">Cancel</a>
+        </div>
+    </div>
+</form>
+
+
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends 'admin/base.html' %}
+{% block content %}
+
+<form id="user-edit-form" action="{{ url_for('user_admin.edit', pk=user.id) }}" method="post" class="text-[12px] text-gray-600">
+    <div class="flex gap-5 py-3">
+        <span class="w-[20%]">First Name</span>
+        <input id="firstname" name="first_name" data-firstname="{{user.first_name}}" class="w-[80%] py-1 px-3   border focus:outline-sky-500" type="text"/>
+    </div>
+
+    <div class="flex gap-5 py-3">
+        <span class="w-[20%]">Last Name</span>
+        <input id="lastname" name="last_name" data-lastname="{{user.last_name}}" class="w-[80%] py-1 px-3   border focus:outline-sky-500" type="text"/>
+    </div>
+
+    <div class="flex gap-5 py-3">
+        <span class="w-[20%]">Email</span>
+        <input id="email" type="email" name="email" data-email="{{user.email}}" class="w-[80%] py-1 px-3 rounded-sm border focus:outline-sky-500" type="text"/>
+    </div>
+
+    <div class="flex gap-5 py-3">
+        <span class="w-[20%]">Username</span>
+        <input id="username" name="username" data-username="{{user.username}}" class="w-[80%] py-1 px-3   border focus:outline-sky-500" type="text"/>
+    </div>
+
+
+    <div class="flex gap-2 py-3 w-[31%]">
+        <span class="w-[50%]">Is Admin</span>
+        <input id="is_admin" name="is_admin" {% if user.is_admin %} checked {% endif %} data-is_admin="{{user.is_admin}}" type="checkbox" value="1" class="w-[50%] py-1 px-3 border focus:outline-sky-500 bg-sky-500" type="text" />
+    </div>
+
+    <div class="flex gap-2 py-3 w-[31%]">
+        <span class="w-[50%]">Is Super</span>
+        <input id="is_super" name="is_super" {% if user.is_super %} checked {% endif %} data-is_super="{{user.is_super}}" type="checkbox" value="1" class="w-[50%] py-1 px-3 border focus:outline-sky-500 bg-sky-500" type="text"/>
+    </div>
+
+    <div class="flex gap-5 py-3">
+        <span class="w-[20%]">Created At</span>
+        <p>{{user.created_at}}</p>
+    </div>
+
+    <div class="flex gap-5 py-3">
+        <span class="w-[20%]">Password</span>
+        <input name="password"  class="w-[80%] py-1 px-3 rounded-sm border focus:outline-sky-500" type="text" placeholder="{{user.password}}" />
+    </div>
+    
+    <div class="flex gap-5 py-3">
+        <span class="w-[20%]"></span>
+        <div class="flex gap-3 w-[80%]">
+            <input class="bg-sky-600 cursor-pointer w-full text-white p-2 mt-5 hover:bg-sky-500" type="submit" value="Save">
+            <a href="javascript:history.back()" class="bg-gray-100   cursor-pointer text-gray-800 p-2 w-full mt-5 hover:bg-gray-300/50 text-center">Cancel</a>
+            <a class="bg-red-50 inline-block text-center w-full cursor-pointer text-red-600 py-2 px-5 mt-5 hover:bg-red-400 hover:text-white" href="{{ url_for('user_admin.delete', pk=user.id) }}">Delete</a>
+        </div>
+    </div>
+</form>
+
+<script>
+    window.addEventListener('load', () => {
+        document.getElementById('firstname').value = '{{user.first_name}}'
+        document.getElementById('lastname').value = '{{user.last_name}}'
+        document.getElementById('email').value = '{{user.email}}'
+        document.getElementById('username').value = '{{user.username}}'
+        document.getElementById('is_admin').value = '{{user.is_admin}}'
+        document.getElementById('is_super').value = '{{user.is_super}}'
+    })
+</script>
+
+{% endblock %}

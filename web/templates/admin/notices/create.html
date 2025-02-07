@@ -1,0 +1,25 @@
+{% extends 'admin/base.html' %}
+{% block content %}
+
+<form action="{{ url_for('notices_admin.create') }}" method="post" class="text-[12px] text-gray-600">
+    <div class="flex gap-5 py-3">
+        <span class="w-[20%]">Title</span>
+        <input required name="title" class="w-[80%] py-1 px-3 border focus:outline-sky-500" type="text"/>
+    </div>
+
+    <div class="flex gap-5 py-3">
+        <span class="w-[20%]">Content</span>
+        <textarea required placeholder="" name="content" class="w-[80%] min-h-[150px] py-1 px-3 border focus:outline-sky-500"></textarea>
+    </div>
+
+    <div class="flex gap-5">
+        <span class="w-[20%]"></span>
+        <div class="flex w-[80%] gap-5">
+            <input class="bg-sky-600 cursor-pointer text-white w-full p-2 mt-5 hover:bg-sky-400" type="submit" value="Save">
+            <a href="javascript:history.back()" class="bg-gray-100 cursor-pointer text-gray-800 p-2 w-full mt-5 hover:bg-gray-300/50 text-center">Cancel</a>
+        </div>
+    </div>
+</form>
+
+
+{% endblock %}
