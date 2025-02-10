@@ -11,6 +11,7 @@
           <th class="py-3 px-2">S/N</th>
           <th class="py-3 px-2">Name</th>
           <th class="py-3 px-2">Date</th>
+          <th class="py-3 px-2">Actions</th>
         </tr>
       </thead>
       <tbody class="text-sky-600">
@@ -19,8 +20,9 @@
               <td class="p-5">{{ tag.id }}</td>
               <td class="px-2 py-3">{{tag.name}}</td>
               <td class="px-2 py-3">{{ tag.created_at }}</td>
+              <td class="px-2 py-3 text-red-400"><a href="{{url_for('blog_admin.confirm_delete_tag', pk=tag.id)}}"><i class="fa-solid fa-trash"></i> Delete</a></td>
           </tr>
-      {% endfor %}
+        {% endfor %}
       </tbody>
     </table>
 {% else %}

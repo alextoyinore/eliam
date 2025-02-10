@@ -1,30 +1,30 @@
 {% extends 'admin/base.html' %}
 {% block content %}
 
-<form action="{{ url_for('user_admin.create') }}" method="post" class="text-[12px] text-gray-600">
+<form action="{{ url_for('event_admin.create') }}" method="post" class="text-[12px] text-gray-600">
     <div class="flex gap-5 py-3">
         <span class="w-[20%]">Title</span>
-        <input required name="title" class="w-[80%] py-1 px-3 border focus:outline-sky-500" type="text"/>
+        {{form.title}}
     </div>
 
     <div class="flex gap-5 py-3">
         <span class="w-[20%]">Start Date</span>
-        <input required type="date" name="start_date" class="w-[80%] py-1 px-3   border focus:outline-sky-500" type="text"/>
+        {{form.start_date}}
     </div>
 
     <div class="flex gap-5 py-3">
         <span class="w-[20%]">End Date</span>
-        <input type="date" required name="end_date" class="w-[80%] py-1 px-3   border focus:outline-sky-500"/>
+        {{form.end_date}}
     </div>
 
     <div class="flex gap-5 py-3">
         <span class="w-[20%]">Start Time</span>
-        <input placeholder="" type="time" name="start_time" class="w-[80%] py-1 px-3   border focus:outline-sky-500" type="text"/>
+        {{form.start_time}}
     </div>
 
     <div class="flex gap-5 py-3">
         <span class="w-[20%]">End Time</span>
-        <input placeholder="" type="time" name="end_time" class="w-[80%] py-1 px-3   border focus:outline-sky-500" type="text"/>
+        {{form.end_time}}
     </div>
 
     <div class="flex gap-5 py-3">
@@ -33,14 +33,14 @@
             <option value="service">Service</option>
             <option value="wedding">Wedding</option>
             <option value="christening">Christening</option>
-            <option value="buria;">Burial</option>
+            <option value="burial">Burial</option>
             <option value="special">Special</option>
         </select>
     </div>
 
     <div class="flex gap-5 py-3">
         <span class="w-[20%]">Description</span>
-        <textarea placeholder="" name="description" class="w-[80%] py-1 px-3   border focus:outline-sky-500"></textarea>
+        {{form.description}}
     </div>
 
     <div class="flex gap-5">

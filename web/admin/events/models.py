@@ -1,5 +1,6 @@
 from sqlalchemy.sql import func
 from web import db
+from web.admin.users.models import User
 
 class Event(db.Model):
     __tablename__ = 'events'
@@ -16,6 +17,11 @@ class Event(db.Model):
     updated_at = db.Column(db.DateTime(timezone=True), onupdate=func.now())
     is_published = db.Column(db.Boolean, default=False, nullable=False)
 
+
+    @property
+    def get_user(self):
+        return User.query.get(pk=self.user)
+
     @property
     def event_date(self):
         return f'{self.start_date} - {self.end_date}'
@@ -25,14 +31,17 @@ class Event(db.Model):
         return f'{self.start_time} - {self.end_time}'
 
     def __init__(self, title=None, start_date=None, 
-                 end_date=None, time_start=None, 
-                 time_end=None, event_type=None):
+                 end_date=None, start_time=None, user=None,
+                 end_time=None, event_type=None, description=None):
         self.title = title
         self.start_date = start_date
         self.end_date = end_date
-        self.time_start = time_start
-        self.time_end = time_end  
+        self.start_time = start_time
+        self.end_time = end_time  
         self.event_type = event_type
+        self.description = description
+        self.user = user
+
 
     def __repr__(self):
         return f'<Event {self.title!r}>'

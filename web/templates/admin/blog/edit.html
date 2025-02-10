@@ -1,1 +1,105 @@
-<h1>Edit a blog post here</h1>
+{% extends 'admin/base.html' %}
+{% block content %}
+
+<form action="{{ url_for('blog_admin.create') }}" method="post" class="flex gap-5 text-[12px] text-gray-600">
+    <div class="w-full flex gap-5">
+
+<!-- Left Side -->
+      <div class="w-[78%]">
+        <div class="flex flex-col gap-1 py-0 w-full">
+           {{form.title}}
+        </div>
+        <div class="flex flex-col gap-1 my-4">
+          {{form.content}}
+        </div>
+      </div>
+
+<!-- Right Side -->
+        <div class="w-[22%]">
+          <div class="flex flex-col gap-1 mb-2">
+            {{form.co_authors}}
+          </div>
+
+          <div class="flex flex-col gap-1 py-2">
+              {{form.excerpt}}
+          </div>
+
+          <div class="flex flex-col gap-1 py-2 tag-wrapper">
+              {{form.tags}}
+              <div id="tagDropdown" class="tag-dropdown"></div>
+          </div>
+      
+          <div class="flex flex-col gap-1 py-2 category-wrapper">
+              {{form.categories}}
+              <div id="catDropdown" class="cat-dropdown"></div>
+          </div>
+
+          <div class="flex flex-col gap-2 w-full mt-2">
+            
+            <!-- Checkbox field for determining if author saves the post or publishes it  -->
+            <input type="checkbox" hidden value="0" name="is_published" id="is_published">
+            <!-- End of Checkbox -->
+
+            <input class="bg-gray-200 cursor-pointer text-gray-600 p-2 w-full hover:bg-gray-100  " type="submit" value="Save" />
+            <a onclick="" href="javascript:history.back()" class="bg-sky-600 w-full cursor-pointer text-white p-2   hover:bg-sky-400 text-center">Publish</a>
+          </div>
+        </div>
+    </div>
+</form>
+
+<br><br>
+
+<script>
+  function handlePublish(){
+    document.querySelector('#is_published').value = 1
+  }
+</script>
+
+
+<script>
+  window.addEventListener('load', () => {
+        document.getElementById('title').value = '{{post.title}}'
+        // document.getElementById('content').value = '{{post.content}}'
+        document.getElementById('excerpt').value = '{{post.excerpt}}'
+        document.getElementById('co_authors').value = '{{post.co_authors}}'
+        document.getElementById('tags').value = '{{post.tags}}'
+        document.getElementById('category').value = '{{post.category}}'
+        tinymce.activeEditor.setContent("{{post.content}}");
+    })
+</script>
+
+<!-- TinyMCE Setup for code editor -->
+
+<script>
+  function saveData(data) {
+    return new Promise(resolve => {
+      // Implement save
+      console.log('Saving:', data);
+      resolve();
+    });
+  }
+
+  // EDITOR CONFIG
+  tinymce.init({
+    selector: '#content',
+    plugins: [
+      // Core editing features
+      'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'image', 'link', 'lists', 'media', 'searchreplace', 'table', 'visualblocks', 'wordcount',
+      // Your account includes a free trial of TinyMCE premium features
+      // Try the most popular premium features until Feb 10, 2025:
+      'checklist', 'mediaembed', 'casechange', 'export', 'formatpainter', 'pageembed', 'a11ychecker', 'tinymcespellchecker', 'permanentpen', 'powerpaste', 'advtable', 'advcode', 'editimage', 'advtemplate', 'ai', 'mentions', 'tinycomments', 'tableofcontents', 'footnotes', 'mergetags', 'autocorrect', 'typography', 'inlinecss', 'markdown','importword', 'exportword', 'exportpdf'
+    ],
+    icons: 'thin',
+    toolbar_sticky: true,
+    toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+    tinycomments_mode: 'embedded',
+    tinycomments_author: 'Author name',
+    mergetags_list: [
+      { value: 'First.Name', title: 'First Name' },
+      { value: 'Email', title: 'Email' },
+    ],
+    ai_request: (request, respondWith) => respondWith.string(() => Promise.reject('See docs to implement AI Assistant')),
+  });
+</script>
+
+{% endblock %}

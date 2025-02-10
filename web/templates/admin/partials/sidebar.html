@@ -1,74 +1,74 @@
 
 <nav class="w-full mb-2 flex flex-col gap-0   text-sky-600 text-sm">
 
-    <a class="flex gap-4 py-2 px-3 items-center active:bg-sky-400 active:text-white w-full hover:bg-sky-50 hover:text-sky-600 hover: " href="{{ url_for('blog_admin.index') }}">
+    <a class="flex gap-4 py-2 px-3 {% if 'blog' in request.url %} bg-sky-300/10 {% endif %} items-center w-full hover:bg-sky-50 hover:text-sky-600 hover: " href="{{ url_for('blog_admin.index') }}">
         <i class="fa-solid fa-newspaper text-sky-500"></i>
         <span>Blog</span>
     </a>
 
-    <a class="flex gap-4 py-2 px-3 items-center active:bg-sky-400 active:text-white w-full hover:bg-sky-50 hover:text-sky-600 hover: " href="{{ url_for('event_admin.index') }}">
+    <a class="flex gap-4 py-2 px-3 {% if 'event' in request.url %} bg-sky-300/10 {% endif %} items-center active:bg-sky-400 active:text-white w-full hover:bg-sky-50 hover:text-sky-600 hover: " href="{{ url_for('event_admin.index') }}">
         <i class="fa-solid fa-users text-sky-500"></i>
         <span>Events</span>
     </a>
 
-    <a class="flex gap-4 py-2 px-3 items-center active:bg-sky-400 active:text-white w-full hover:bg-sky-50 hover:text-sky-600 hover: " href="{{ url_for('gallery_admin.index') }}">
+    <a class="flex gap-4 py-2 px-3 {% if 'gallery' in request.url %} bg-sky-300/10 {% endif %} items-center active:bg-sky-400 active:text-white w-full hover:bg-sky-50 hover:text-sky-600 hover: " href="{{ url_for('gallery_admin.index') }}">
         <i class="fa-solid fa-image text-sky-500"></i>
         <span>Gallery</span>
     </a>
 
-    <a class="flex gap-4 py-2 px-3 items-center active:bg-sky-400 active:text-white w-full hover:bg-sky-50 hover:text-sky-600 hover: " href="{{ url_for('hymns_admin.index') }}">
+    <a class="flex gap-4 py-2 px-3 {% if 'hymn' in request.url %} bg-sky-300/10 {% endif %} items-center active:bg-sky-400 active:text-white w-full hover:bg-sky-50 hover:text-sky-600 hover: " href="{{ url_for('hymns_admin.index') }}">
         <i class="fa-solid fa-music text-sky-500"></i>
         <span>Hymns</span>    
     </a>
 
-    <a class="flex gap-4 py-2 px-3 items-center active:bg-sky-400 active:text-white w-full hover:bg-sky-50 hover:text-sky-600 hover: " href="{{ url_for('notices_admin.index') }}">
+    <a class="flex gap-4 py-2 px-3 {% if 'notice' in request.url %} bg-sky-300/10 {% endif %} items-center active:bg-sky-400 active:text-white w-full hover:bg-sky-50 hover:text-sky-600 hover: " href="{{ url_for('notices_admin.index') }}">
         <i class="fa-solid fa-bell text-sky-500"></i>
         <span>Notices</span>
     </a>
 
-    <a class="flex gap-4 py-2 px-3 items-center active:bg-sky-400 active:text-white w-full hover:bg-sky-50 hover:text-sky-600 hover: " href="{{ url_for('member_admin.index') }}">
+    <a class="flex gap-4 py-2 px-3 {% if 'member' in request.url %} bg-sky-300/10 {% endif %} items-center active:bg-sky-400 active:text-white w-full hover:bg-sky-50 hover:text-sky-600 hover: " href="{{ url_for('member_admin.index') }}">
         <i class="fa-solid fa-address-book text-sky-500"></i>
           <span>Members</span>    
     </a>
 
-    <a class="flex gap-4 py-2 px-3 items-center active:bg-sky-400 active:text-white w-full hover:bg-sky-50 hover:text-sky-600 hover: " href="{{ url_for('sermon_admin.index') }}">
+    <a class="flex gap-4 py-2 px-3 {% if 'sermon' in request.url %} bg-sky-300/10 {% endif %} items-center active:bg-sky-400 active:text-white w-full hover:bg-sky-50 hover:text-sky-600 hover: " href="{{ url_for('sermon_admin.index') }}">
         <i class="fa-solid fa-bible text-sky-500"></i>
         <span>Sermon</span>    
     </a>
 
-    <a class="flex gap-4 py-2 px-3 items-center active:bg-sky-400 active:text-white w-full hover:bg-sky-50 hover:text-sky-600 hover: " href="{{ url_for('service_admin.index') }}">
+    <a class="flex gap-4 py-2 px-3 {% if 'service' in request.url %} bg-sky-300/10 {% endif %} items-center active:bg-sky-400 active:text-white w-full hover:bg-sky-50 hover:text-sky-600 hover: " href="{{ url_for('service_admin.index') }}">
         <i class="fa-solid fa-list text-sky-500"></i>
         <span>Services</span> 
     </a>
 
-    <a class="flex gap-4 py-2 px-3 items-center active:bg-sky-400 active:text-white w-full hover:bg-sky-50 hover:text-sky-600 hover: " href="{{ url_for('testimony_admin.index') }}">
+    <a class="flex gap-4 py-2 px-3 {% if 'testimony' in request.url %} bg-sky-300/10 {% endif %} items-center active:bg-sky-400 active:text-white w-full hover:bg-sky-50 hover:text-sky-600 hover: " href="{{ url_for('testimony_admin.index') }}">
         <i class="fa-solid fa-quote-left text-sky-500"></i>
           <span>Testimony</span>
     </a>
 
-    <a class="flex gap-4 py-2 px-3 items-center active:bg-sky-400 active:text-white w-full hover:bg-sky-50 hover:text-sky-600 hover: " href="{{ url_for('training_admin.index') }}">
+    <a class="flex gap-4 py-2 px-3 {% if 'training' in request.url %} bg-sky-300/10 {% endif %} items-center active:bg-sky-400 active:text-white w-full hover:bg-sky-50 hover:text-sky-600 hover: " href="{{ url_for('training_admin.index') }}">
         <i class="fa-solid fa-school text-sky-500"></i>
         <span>Training</span>          
     </a>
 
-    <a class="flex gap-4 py-2 px-3 items-center active:bg-sky-400 active:text-white w-full hover:bg-sky-50 hover:text-sky-600 hover: " href="{{ url_for('forum_admin.index') }}">
+    <a class="flex gap-4 py-2 px-3 {% if 'forum' in request.url %} bg-sky-300/10 {% endif %} items-center active:bg-sky-400 active:text-white w-full hover:bg-sky-50 hover:text-sky-600 hover: " href="{{ url_for('forum_admin.index') }}">
         <i class="fa-solid fa-comment text-sky-500"></i>       
         <span>Forum</span>
     </a>
 
-    <a class="flex gap-4 py-2 px-3 items-center active:bg-sky-400 active:text-white w-full hover:bg-sky-50 hover:text-sky-600 hover: " href="{{ url_for('enquiries.index') }}">
+    <a class="flex gap-4 py-2 px-3 {% if 'enquiries' in request.url %} bg-sky-300/10 {% endif %} items-center active:bg-sky-400 active:text-white w-full hover:bg-sky-50 hover:text-sky-600 hover: " href="{{ url_for('enquiries.index') }}">
         <i class="fa-solid fa-envelope text-sky-500"></i>
          <span>Enquiries</span> 
     </a>
 
-    <a class="flex gap-4 py-2 px-3 items-center active:bg-sky-400 active:text-white w-full hover:bg-sky-50 hover:text-sky-600 hover: " href="{{ url_for('prayer_admin.index') }}">
+    <a class="flex gap-4 py-2 px-3 {% if 'prayer' in request.url %} bg-sky-300/10 {% endif %} items-center active:bg-sky-400 active:text-white w-full hover:bg-sky-50 hover:text-sky-600 hover: " href="{{ url_for('prayer_admin.index') }}">
         <i class="fa-solid fa-pray text-sky-500"></i>
           <span>Prayers</span>
     </a>
 
     <hr class="my-2">
 
-    <a class="flex gap-4 py-2 px-3 items-center active:bg-sky-400 active:text-white w-full hover:bg-sky-50 hover:text-sky-600 hover: " href="{{ url_for('user_admin.index') }}">
+    <a class="flex gap-4 py-2 px-3 {% if 'user' in request.url %} bg-sky-300/10 {% endif %} items-center active:bg-sky-400 active:text-white w-full hover:bg-sky-50 hover:text-sky-600 hover: " href="{{ url_for('user_admin.index') }}">
         <i class="fa-solid fa-user text-sky-500"></i>
           <span>Users</span>
     </a>

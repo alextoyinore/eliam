@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Eliam - {% block title %}{% endblock %}</title>
+    <title>Eliam - {{title}}</title>
 
     <!-- Links -->
     <link rel="stylesheet" href="{{ url_for('static', filename='/css/style.css') }}">
@@ -54,11 +54,11 @@
             {% include 'admin/partials/sidebar.html' %}
         </div>
         
-          <div class="{% if not title == 'New Blog' %} w-[64%] {% else %} w-[82%] {% endif %}">
+          <div class="{% if not 'blog/create' in request.url and not 'blog/edit' in request.url %} w-[64%] {% else %} w-[82%] {% endif %}">
               {% block content %}{% endblock %}
           </div>
 
-        {% if not title == 'New Blog' %}
+        {% if not 'blog/create' in request.url and not 'blog/edit' in request.url %}
           <div class="w-[18%]">
             <div class="flex flex-col">
                 <div class="text-sm bg-green-50   px-5 py-3 text-sky-600 mb-5">

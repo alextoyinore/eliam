@@ -25,7 +25,7 @@ class PostForm(FlaskForm):
         'placeholder':'Title', 
         'class':"w-full py-2 px-3 border focus:outline-sky-500"
         })
-    content = TextAreaField(name='content', id='editor', render_kw={
+    content = TextAreaField(name='content', id='content', render_kw={
         'class':"w-full min-h-[500px] py-1 px-3 border focus:outline-sky-500"
         })
     excerpt = TextAreaField(name='excerpt', id='excerpt', render_kw={
@@ -36,16 +36,15 @@ class PostForm(FlaskForm):
         'placeholder':'Co-Authors',
         'class':"w-full py-2 px-3 border focus:outline-sky-500"
         })
-    tags = StringField(name='tags', id='tagInput', render_kw={
+    tags = StringField(name='tags', id='tags', render_kw={
         'placeholder':'Tags',
         'class':"w-full py-2 px-3 border focus:outline-sky-500 form-control"
         })
-    categories = SelectMultipleField(name='categories', id='categories', coerce=int, render_kw={'placeholder':'Category', 'class':"w-full py-2 px-3 border focus:outline-sky-500 form-control"
+    categories = SelectField(name='category', id='category', coerce=int, render_kw={'placeholder':'Category', 'class':"w-full py-2 px-3 border focus:outline-sky-500 form-control"
         })
     
     def __init__(self, *args, **kwargs):
         super(PostForm, self).__init__(*args, **kwargs)
         # Populate choices
         self.categories.choices = [(c.id, c.name) for c in Category.query.all()]
-        self.tags.choices = [(t.id, t.name) for t in Tag.query.all()]
-        
+        # self.tags.choices = [(t.id, t.name) for t in Tag.query.all()]

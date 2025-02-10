@@ -1,7 +1,6 @@
 from sqlalchemy.sql import func
 from web import db
 from werkzeug.security import generate_password_hash, check_password_hash
-from web.admin.blog.models import Post
 
 class User(db.Model):
     __tablename__ = 'users'
@@ -16,8 +15,6 @@ class User(db.Model):
     updated_at = db.Column(db.DateTime(timezone=True), onupdate=func.now())
     created_at = db.Column(db.DateTime(timezone=True), server_default=func.now())
     
-    # Relationships
-    # posts = db.Relationship(Post, backref='user', lazy='select', uselist=True, cascade='all, delete-orphan', order_by=Post.created_at)
 
     @property
     def fullname(self):

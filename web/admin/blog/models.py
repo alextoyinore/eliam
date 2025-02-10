@@ -1,5 +1,6 @@
 from sqlalchemy.sql import func
 from web import db
+from web.admin.users.models import User
 
 # Association table
 post_categories = db.Table('post_categories',
@@ -20,10 +21,10 @@ class Post(db.Model):
     slug = db.Column(db.String(250), unique=True, nullable=False)
     content = db.Column(db.Text, nullable=False, default='')
     excerpt = db.Column(db.Text, nullable=True)
-    author = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='CASCADE'), name='post_author', nullable=False)
+    author = db.Column(db.Integer, nullable=False)
     co_authors = db.Column(db.Text, nullable=True)
-    tags = db.relationship('Tag', secondary=post_tags, backref='posts')
-    categories = db.relationship('Category', secondary=post_categories, backref='posts')
+    tags = db.Column(db.String(100), nullable=True)
+    category = db.Column(db.Integer, nullable=False)
     created_at = db.Column(db.DateTime(timezone=True), server_default=func.now())
     is_published = db.Column(db.Boolean, default=False, nullable=False)
     updated_at = db.Column(db.DateTime(timezone=True), onupdate=func.now())
@@ -32,11 +33,11 @@ class Post(db.Model):
 
 
     def __init__(self, title=None, content=None, 
-                 tags=None, categories=None, author=None, co_authors=None, excerpt=None, slug=None,  is_published=None):
+                 tags=None, category=None, author=None, co_authors=None, excerpt=None, slug=None,  is_published=None):
         self.title = title
         self.content = content
         self.tags = tags
-        self.categories = categories
+        self.category = category
         self.excerpt = excerpt
         self.author = author
         self.co_authors = co_authors
@@ -44,57 +45,50 @@ class Post(db.Model):
         self.slug = slug
 
     # Tags methods
+
+    @property
+    def get_author(self):
+        return User.query.get(pk=self.author)
+
+    @property
+    def get_category(self):
+        return Category.query.get(pk=self.category)
+
+    @property
+    def get_tags(self):
+        tags = []
+        if self.tags:
+            tag_names = self.tags.split(',')
+            for name in tag_names:
+                tag = Tag.query.filter_by(name=name.strip()).first()
+                if tag:
+                    tags.append(tag)
+        return tags
+
     
     @property
-    def tag_list(self):
-        return [tag.name for tag in self.tags]
-    
-    @tag_list.setter
-    def tag_list(self, tag_names):
-        # Clear existing tags
-        self.tags = []
+    def create_tags(self):
         # Add new tags
-        for name in tag_names:
-            tag = Tag.query.filter_by(name=name).first()
-            if tag:
-                self.tags.append(tag)
-    
-    @property
-    def tag_ids(self):
-        return [tag.id for tag in self.tags]
-    
-    # Optional: Get as comma-separated string
-    @property
-    def tag_string(self):
-        return ', '.join(self.tag_list) 
+        if self.tags:
+            tag = self.tags.split(',')
+            for name in self.tags:
+                tag = Tag.query.filter_by(name=name.strip()).first()
+                if not tag:
+                    new_tag = Tag(name=name.strip(), slug=name.replace(' ', '-'))
+                    db.session.add(new_tag)
+            db.session.commit()
+
 
     @property
     def get_co_authors(self):
-        return self.co_authors.split(',') if self.co_authors else []
-    
-    # Categories Methods
-    
-    @property
-    def category_list(self):
-        return [cat.name for cat in self.categories]
-    
-    @category_list.setter
-    def category_list(self, category_names):
-        # Clear existing tags
-        self.categories = []
-        # Add new categories
-        for name in category_names:
-            category = Category.query.filter_by(name=name).first()
-            if category:
-                self.categories.append(category)
-    
-    @property
-    def category_ids(self):
-        return [cat.id for cat in self.categories]
-
-    @property
-    def category_string(self):
-        return ', '.join(self.category_list)
+        co_authors = []
+        if self.co_authors:
+            co_authors_usernames = self.co_authors.split(',')
+            for username in co_authors_usernames:
+                author = User.query.filter_by(username=username.strip())
+                if author:
+                    co_authors.append(author)
+        return co_authors
 
     def __repr__(self):
         return f'<User {self.title!r}>'

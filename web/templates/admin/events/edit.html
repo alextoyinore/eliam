@@ -1,1 +1,69 @@
-<h1>Edit an existing event here</h1>
+{% extends 'admin/base.html' %}
+{% block content %}
+
+<form action="{{ url_for('event_admin.edit', pk=event.id) }}" method="post" class="text-[12px] text-gray-600">
+    <div class="flex gap-5 py-3">
+        <span class="w-[20%]">Title</span>
+        {{form.title}}
+    </div>
+
+    <div class="flex gap-5 py-3">
+        <span class="w-[20%]">Start Date</span>
+        {{form.start_date}}
+    </div>
+
+    <div class="flex gap-5 py-3">
+        <span class="w-[20%]">End Date</span>
+        {{form.end_date}}
+    </div>
+
+    <div class="flex gap-5 py-3">
+        <span class="w-[20%]">Start Time</span>
+        {{form.start_time}}
+    </div>
+
+    <div class="flex gap-5 py-3">
+        <span class="w-[20%]">End Time</span>
+        {{form.end_time}}
+    </div>
+
+    <div class="flex gap-5 py-3">
+        <span class="w-[20%]">Event Type</span>
+        <select required name="event_type" type="select" class="w-[80%] py-1 px-3   border focus:outline-sky-500" type="text" value="">
+            <option value="service">Service</option>
+            <option value="wedding">Wedding</option>
+            <option value="christening">Christening</option>
+            <option value="burial">Burial</option>
+            <option value="special">Special</option>
+        </select>
+    </div>
+
+    <div class="flex gap-5 py-3">
+        <span class="w-[20%]">Description</span>
+        {{form.description}}
+    </div>
+
+    <div class="flex gap-5">
+        <span class="w-[20%]"></span>
+        <div class="flex w-[80%] gap-5">
+            <input class="bg-sky-600 cursor-pointer text-white w-full p-2 mt-5 hover:bg-sky-400" type="submit" value="Save">
+            <a href="javascript:history.back()" class="bg-gray-100 cursor-pointer text-gray-800 p-2 w-full mt-5 hover:bg-gray-300/50 text-center">Cancel</a>
+        </div>
+    </div>
+    
+</form>
+
+<script>
+    window.addEventListener('load', () => {
+          document.getElementById('title').value = '{{event.title}}'
+          document.getElementById('description').value = '{{event.description}}'
+          document.getElementById('start_date').value = "{{event.start_date}}"
+          document.getElementById('end_date').value = "{{event.end_date}}"
+          document.getElementById('start_time').value = '{{event.start_time}}'
+          document.getElementById('end_time').value = '{{event.end_time}}'
+          document.getElementById('event_type').value = '{{event.event_type}}'
+      })
+</script>
+
+
+{% endblock %}

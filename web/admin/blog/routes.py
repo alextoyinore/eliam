@@ -5,13 +5,20 @@ from werkzeug.exceptions import abort
 from flask import jsonify
 from .models import Tag, Category, Post
 from .forms import PostForm, CategoryForm, TagForm
+from web.admin.users.models import User
 
 
 bp = Blueprint('blog_admin', __name__, url_prefix='/admin/blog')
 
 @bp.route('/', methods=('GET',))
 def index():
-    return render_template('admin/blog/index.html', title='Blogs')
+    posts = Post.query.all()
+    for post in posts:
+        cat = Category.query.get(post.category).name
+        post.category = cat
+        author = User.query.get(post.author).fullname
+        post.author = author
+    return render_template('admin/blog/index.html', posts=posts, title='Posts')
 
 
 @bp.route('/create', methods=('GET', 'POST'))
@@ -26,7 +33,8 @@ def create():
             excerpt = request.form['excerpt'].strip()
             co_authors = request.form['co_authors'].strip()
             tags = request.form['tags'].strip()
-            categories = request.form['categories']
+            category = int(request.form['category'])
+            author = session['user_id']
             is_published = request.form.get('is_published')
 
             error = None
@@ -34,59 +42,28 @@ def create():
             if not title:
                 error = 'Title is required.'
             
-            tags_list = []
-
-            if tags:
-                tags = tags.split(',')
-                for name in tags:
-                    # Check tag
-                    name = name.strip()
-                    t = Tag.query.filter_by(name=name).first()
-                    if not t:
-                        tag = Tag(name=name, slug=name)
-                        db.session.add(tag)
-                        tags_list.append(tag.id)
-                # db.session.commit()
-    
-
-            # Add tags
-            if form.tags.data:
-                tags = Tag.query.filter(
-                    Tag.id.in_(tags_list)
-                ).all()
-                if len(tags) != len(form.tags.data):
-                    flash('One or more selected tags are invalid')
-                    return redirect(url_for('blog_admin.create'))
-                tags = tags
-
-            # Add categories
-            if form.categories.data:
-                categories = Category.query.filter(
-                    Category.id.in_(form.categories.data)
-                ).all()
-                if len(categories) != len(form.categories.data):
-                    flash('One or more selected categories are invalid')
-                    return redirect(url_for('post.create'))
-                categories = categories
 
             if error is None:
                 post = Post(title=title, 
                             slug=slug,
                             content=content,
+                            author=author,
                             excerpt=excerpt, 
                             co_authors=co_authors,
                             tags=tags,
-                            categories=categories,
+                            category=category,
                             is_published=is_published)
                 db.session.add(post)
                 db.session.commit()
 
+                # post.create_tags()
+
                 flash(f'{title} has been published successfully!', 'success')
                 return redirect(url_for("user_admin.index"))
-            
-        except IntegrityError as e:
+        
+        except IntegrityError:
             db.session.rollback()
-            error = f'A post with the title {title} already exists. Use a different title'
+            error = f'A post with that title {title} already exists.'
             
         except SQLAlchemyError as e:
             db.session.rollback()
@@ -97,8 +74,10 @@ def create():
 
 
 @bp.route('/edit/<int:pk>', methods=('GET', 'POST'))
-def edit():
-    return render_template('admin/blog/edit.html')
+def edit(pk):
+    form = PostForm()
+    post = Post.query.get_or_404(pk)
+    return render_template('admin/blog/edit.html', title=post.title, form=form, post=post)
 
 
 @bp.route('/delete/<int:pk>', methods=('POST',))
@@ -106,7 +85,8 @@ def delete(pk):
     post = Post.query.get_or_404(pk)
     return render_template('admin/blog/tag/delete.html', post=post, title=post.title)
 
-@bp.route('/confirm_delete/<int:pk>', methods=('POST',))
+
+@bp.route('/confirm_delete/<int:pk>', methods=('POST', 'GET'))
 def confirm_delete(pk):
     try:
         post = Post.query.get_or_404(pk)
@@ -182,7 +162,7 @@ def delete_tag(pk):
     return render_template('admin/blog/tag/delete.html', tag=tag, title=tag.name)
 
 
-@bp.route('/tag/confirm_delete/<int:pk>', methods=('POST',))
+@bp.route('/tag/confirm_delete/<int:pk>', methods=('GET', 'POST'))
 def confirm_delete_tag(pk):
     try:
         tag = Tag.query.get_or_404(pk)
@@ -193,7 +173,7 @@ def confirm_delete_tag(pk):
     except SQLAlchemyError:
         db.session.rollback()
         flash(f'Could not delete this tag. Try again later.', 'error')
-        return(redirect(url_for('blog_admin.edit_category', pk=tag.id)))
+        return(redirect(url_for('blog_admin.edit_tag', pk=tag.id)))
 
 
 # Get Tags
@@ -268,7 +248,7 @@ def delete_category(pk):
     return render_template('admin/blog/category/delete.html', category=category, title=category.name)
 
 
-@bp.route('/category/confirm_delete/<int:pk>', methods=('POST',))
+@bp.route('/category/confirm_delete/<int:pk>', methods=('POST', 'GET'))
 def confirm_delete_category(pk):
     try:
         category = Category.query.get_or_404(pk)

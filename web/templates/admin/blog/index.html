@@ -10,33 +10,29 @@
     </div>
   </div>
   <hr class="my-5">
-{% if users|length > 0 %}
+{% if posts|length > 0 %}
     <table class="w-full text-left   table-auto min-w-max text-gray-800 p-2">
       <thead>
         <tr class="bg-sky-100 font-light text-sky-600">
           <th class="py-3 px-2">S/N</th>
-          <th class="py-3 px-2">Member</th>
-          <th class="py-3 px-2">Department</th>
-          <th class="py-3 px-2">Role</th>
+          <th class="py-3 px-2">Title</th>
+          <th class="py-3 px-2">Excerpt</th>
+          <th class="py-3 px-2">Author</th>
+          <th class="py-3 px-2">Category</th>
+          <th class="py-3 px-2">Tags</th>
           <th class="py-3 px-2">Date</th>
         </tr>
       </thead>
       <tbody class="text-sky-600">
-        {% for user in users %}
-          <tr  class="cursor-pointer items-center p-3 border-b hover:bg-sky-50/50 clickable-row" data-href="{{ url_for('user_admin.edit', pk=user.id) }}">
-              <td class="p-5">{{ user.id }}</td>
-              <td class="flex gap-3 px-2 py-3 items-center">
-                <div class="w-[40px] h-[40px] text-center items-center font-semibold text-lg bg-sky-100 rounded-full object-center inline-block p-1 text-sky-500">
-                  {{user.first_name[0]}}{{user.last_name[0]}}
-                </div>
-                <div>
-                  <p class="font-semibold">{{ user.first_name }} {{ user.last_name }}</p>
-                  <p class="text-[12px] text-gray-500">{{user.email}}</p>
-                </div>
-              </td>
-              <td class="px-2 py-3">Member</td>
-              <td class="px-2 py-3">{% if user. is_super %} Super Admin {% elif user.is_admin %} Admin {% else %} Auditor {% endif %}</td>
-              <td class="px-2 py-3">{{ user.created_at }}</td>
+        {% for post in posts %}
+          <tr  class="cursor-pointer items-center p-3 border-b hover:bg-sky-50/50 clickable-row" data-href="{{ url_for('blog_admin.edit', pk=post.id) }}">
+              <td class="p-5">{{ post.id }}</td>
+              <td class="px-2 py-3">{{ post.title }}</td>
+              <td class="px-2 py-3">{{post.excerpt}}</td>
+              <td class="px-2 py-3">{{post.author}}</td>
+              <td class="px-2 py-3">{{post.category}}</td>
+              <td class="px-2 py-3">{{post.tags}}</td>
+              <td class="px-2 py-3">{{ post.created_at }}</td>
           </tr>
       {% endfor %}
       </tbody>

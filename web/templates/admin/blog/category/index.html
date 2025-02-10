@@ -12,6 +12,7 @@
           <th class="py-3 px-2">Name</th>
           <th class="py-3 px-2">Description</th>
           <th class="py-3 px-2">Date</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody class="text-sky-600">
@@ -21,6 +22,7 @@
               <td class="px-2 py-3">{{category.name}}</td>
               <td class="px-2 py-3">{{category.description}}</td>
               <td class="px-2 py-3">{{ category.created_at }}</td>
+              <td class="px-2 py-3 text-red-400"><a href="{{url_for('blog_admin.confirm_delete_category', pk=category.id)}}"><i class="fa-solid fa-trash"></i> Delete</a></td>
           </tr>
       {% endfor %}
       </tbody>

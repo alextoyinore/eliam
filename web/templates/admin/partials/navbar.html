@@ -12,7 +12,7 @@
 
 {% with messages = get_flashed_messages(category_filter=["error"]) %}
 {% if messages %}
-<div class="w-full flex bg-red-400 text-white text-[12px] text-center p-1">
+<div class="w-full flex bg-red-400/10 text-red-500 text-[12px] text-center p-1">
   <ul class="w-[90%]">
     {%- for msg in messages %}
     <li>{{ msg }}</li>
@@ -26,7 +26,7 @@
 
 {% with messages = get_flashed_messages(category_filter=["success"]) %}
 {% if messages %}
-<div class="w-full flex bg-green-400 text-white text-[12px] text-center p-1">
+<div class="w-full flex bg-green-400/10 text-green-500 text-[12px] text-center p-1">
   <ul class="w-[90%]">
     {%- for msg in messages %}
     <li>{{ msg }}</li>
@@ -40,7 +40,7 @@
 
 {% with messages = get_flashed_messages(category_filter=["info"]) %}
 {% if messages %}
-<div class="w-full flex bg-yellow-400 text-white text-[12px] text-center p-1">
+<div class="w-full flex bg-yellow-400/10 text-orange-500 text-[12px] text-center p-1">
   <ul class="w-[90%]">
     {%- for msg in messages %}
     <li>{{ msg }}</li>

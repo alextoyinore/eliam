@@ -4,33 +4,29 @@
 <div class="text-[12px]">
   <a class="py-2 px-5 bg-sky-600 text-white  " href="{{ url_for('event_admin.create') }}">New Event</a>
   <hr class="my-5">
-{% if users|length > 0 %}
+{% if events|length > 0 %}
     <table class="w-full text-left   table-auto min-w-max text-gray-800 p-2">
       <thead>
         <tr class="bg-sky-100 font-light text-sky-600">
           <th class="py-3 px-2">S/N</th>
           <th class="py-3 px-2">Title</th>
-          <th class="py-3 px-2">Dates</th>
-          <th class="py-3 px-2">Time</th>
-          <th class="py-3 px-2">Type</th>
+          <th class="py-3 px-2">Start Date</th>
+          <th class="py-3 px-2">End Date</th>
+          <th class="py-3 px-2">Start Time</th>
+          <th class="py-3 px-2">End Time</th>
+          <th class="py-3 px-2">Description</th>
         </tr>
       </thead>
       <tbody class="text-sky-600">
-        {% for user in users %}
-          <tr  class="cursor-pointer items-center p-3 border-b hover:bg-sky-50/50 clickable-row" data-href="{{ url_for('user_admin.edit', pk=user.id) }}">
-              <td class="p-5">{{ user.id }}</td>
-              <td class="flex gap-3 px-2 py-3 items-center">
-                <div class="w-[40px] h-[40px] text-center items-center font-semibold text-lg bg-sky-100 rounded-full object-center inline-block p-1 text-sky-500">
-                  {{user.first_name[0]}}{{user.last_name[0]}}
-                </div>
-                <div>
-                  <p class="font-semibold">{{ user.first_name }} {{ user.last_name }}</p>
-                  <p class="text-[12px] text-gray-500">{{user.email}}</p>
-                </div>
-              </td>
-              <td class="px-2 py-3">Member</td>
-              <td class="px-2 py-3">{{user.role|capitalize}}</td>
-              <td class="px-2 py-3">{{ user.created_at }}</td>
+        {% for event in events %}
+          <tr  class="cursor-pointer items-center p-3 border-b hover:bg-sky-50/50 clickable-row" data-href="{{ url_for('event_admin.edit', pk=event.id) }}">
+              <td class="p-5">{{ event.id }}</td>
+              <td class="px-2 py-3">{{event.title}}</td>
+              <td class="px-2 py-3">{{event.start_date}}</td>
+              <td class="px-2 py-3">{{event.end_date}}</td>
+              <td class="px-2 py-3">{{event.start_time}}</td>
+              <td class="px-2 py-3">{{event.end_time}}</td>
+              <td class="px-2 py-3">{{event.description}}</td>
           </tr>
       {% endfor %}
       </tbody>
