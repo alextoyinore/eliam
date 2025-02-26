@@ -1,5 +1,43 @@
 {% extends 'admin/base.html' %}
 {% block content %}
-<h1>List of all added hymns</h1>
+
+<div class="text-[12px]">
+  <a class="py-2 px-5 bg-sky-600 text-white  " href="{{ url_for('hymns_admin.create') }}">New Hymn</a>
+  <hr class="my-5">
+{% if hymns|length > 0 %}
+    <table class="w-full text-left   table-auto min-w-max text-gray-800 p-2">
+      <thead>
+        <tr class="bg-sky-100 font-light text-sky-600">
+          <th class="py-3 px-2">S/N</th>
+          <th class="py-3 px-2">Title</th>
+          <th class="py-3 px-2">Added By</th>
+          <th class="py-3 px-2">Created</th>
+        </tr>
+      </thead>
+      <tbody class="text-sky-600">
+        {% for hymn in hymns %}
+          <tr  class="cursor-pointer items-center p-3 border-b hover:bg-sky-50/50 clickable-row" data-href="{{ url_for('hymns_admin.edit', pk=hymn.id) }}">
+              <td class="p-5">{{ hymn.id }}</td>
+              <td class="px-2 py-3">{{hymn.title}}</td>
+              <td class="px-2 py-3">{{hymn.user}}</td>
+              <td class="px-2 py-3">{{hymn.created_at}}</td>
+          </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+{% else %}
+<p class="text-gray-500">No hymns have been created yet. Click 'New Hymn'</p>
+{% endif %}
+</div>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+  const rows = document.querySelectorAll('.clickable-row');
+  rows.forEach(row => {
+      row.addEventListener('click', function() {
+          window.location.href = this.dataset.href;
+      });
+  });
+});
+</script>
 {% endblock %}
 

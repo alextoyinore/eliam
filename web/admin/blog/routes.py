@@ -83,7 +83,7 @@ def edit(pk):
 @bp.route('/delete/<int:pk>', methods=('POST',))
 def delete(pk):
     post = Post.query.get_or_404(pk)
-    return render_template('admin/blog/tag/delete.html', post=post, title=post.title)
+    return render_template('admin/blog/delete.html', post=post, title=post.title)
 
 
 @bp.route('/confirm_delete/<int:pk>', methods=('POST', 'GET'))

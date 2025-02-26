@@ -80,6 +80,7 @@ def create():
 def edit(pk):
     form = EventForm()
     event = Event.query.get_or_404(pk)
+    # event.start_date = event.start_date
     if request.method == 'POST':
         try:
             title = request.form['title'].strip()
@@ -131,7 +132,22 @@ def edit(pk):
     return render_template('admin/events/edit.html', event=event, form=form, title=event.title)
 
 
-@bp.route('/delete/<int:pk>', methods=('DELETE',))
+@bp.route('/delete/<int:pk>', methods=('GET',))
 def delete(pk):
-    pass
+    event = Event.query.get_or_404(pk)
+    return render_template('admin/events/delete.html', event=event, title=event.title)
+
+
+@bp.route('/confirm_delete/<int:pk>', methods=('POST', 'GET'))
+def confirm_delete(pk):
+    try:
+        event = Event.query.get_or_404(pk)
+        db.session.delete(event)
+        db.session.commit()
+        flash(f'The event {event.title} has been deleted successfully!', 'success')
+        return redirect(url_for('event_admin.index'))
+    except SQLAlchemyError:
+        db.session.rollback()
+        flash(f'Could not delete this event. Try again later.', 'error')
+        return(redirect(url_for('event_admin.edit', pk=event.id)))
 
